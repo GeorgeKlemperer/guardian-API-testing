@@ -5,11 +5,12 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(form);
   const articleFilter = formData.get("section");
+  const articleFilterURLAppendage = articleFilter ? `&order-by=relevance&section=${articleFilter}` : "";
   const specificDate = formData.get("date");
 
   const fetchArticlesByDateAndSection = async (date, section) => {
     const apiKey = 'bb4717f4-9ef8-4141-a00c-6cf38e5d80e4';
-    const url = `https://content.guardianapis.com/search?from-date=${specificDate}&to-date=${specificDate}&api-key=${apiKey}&order-by=relevance&section=${articleFilter}`;
+    const url = `https://content.guardianapis.com/search?from-date=${specificDate}&to-date=${specificDate}&api-key=${apiKey}${articleFilterURLAppendage}`;
 
     try {
       const response = await fetch(url);
